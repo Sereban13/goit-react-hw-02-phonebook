@@ -9,14 +9,10 @@ const phoneRegExp =
 const schema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').required('Required'),
 
-  number: Yup.string()
-    .matches(phoneRegExp)
-    // .positive('Must be >0')
-    // .min(7, 'Not short number!')
-    .required('Required'),
+  number: Yup.string().matches(phoneRegExp).required('Required'),
 });
 
-export const ContactForm = ({ onAdd, contacts }) => (
+export const ContactForm = ({ onAdd }) => (
   <div>
     <Formik
       initialValues={{
@@ -25,16 +21,9 @@ export const ContactForm = ({ onAdd, contacts }) => (
       }}
       validationSchema={schema}
       onSubmit={(values, actions) => {
-        const isExistName = contacts.find(
-          contact => contact.name === values.name
-        );
-        if (isExistName) {
-          alert(`Contact "${values.name}" is already exist`);
-        } else {
-          onAdd({ ...values, id: nanoid() });
-          actions.resetForm();
-          console.log(values);
-        }
+        onAdd({ ...values, id: nanoid() });
+        actions.resetForm();
+        // console.log(values);
       }}
     >
       <Forma>
