@@ -3,12 +3,16 @@ import { Input, Forma, Label, ButtonSubmit } from './ContactForm.styled';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 
+const phoneRegExp =
+  /^\+?\d{1,4}?[ .\-]?(\(\d{1,3}\))?([ .\-]?\d{1,4}){1,4}([ .\-]?\d{1,9})?$/;
+
 const schema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').required('Required'),
 
-  number: Yup.number()
-    .positive('Must be >0')
-    .min(7, 'Not short number!')
+  number: Yup.string()
+    .matches(phoneRegExp)
+    // .positive('Must be >0')
+    // .min(7, 'Not short number!')
     .required('Required'),
 });
 
@@ -48,7 +52,7 @@ export const ContactForm = ({ onAdd, contacts }) => (
           name="number"
           type="tel"
           placeholder="Enter the phone number..."
-          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+          // pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         />
 
