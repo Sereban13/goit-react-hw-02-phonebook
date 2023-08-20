@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 
 const phoneRegExp =
-  /^\+?\d{1,4}?[ .\-]?(\(\d{1,3}\))?([ .\-]?\d{1,4}){1,4}([ .\-]?\d{1,9})?$/;
+  /^\+?\d{1,4}?[ .-]?(\(\d{1,3}\))?([ .-]?\d{1,4}){1,4}([ .-]?\d{1,9})?$/;
 
 const schema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').required('Required'),
